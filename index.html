@@ -24,8 +24,8 @@
         			.await(callback);
 				
 			function callback(error, csvData, us, newEngland){
-				var us = topojson.feature(us, us.objects.States)
-				var newEngland = topojson.feature(newEngland, newEngland.objects.States)
+				var us = topojson.feature(us, us.objects.names)
+				var newEngland = topojson.feature(newEngland, newEngland.objects.names)
 				
         			console.log(error);
         			console.log(csvData);

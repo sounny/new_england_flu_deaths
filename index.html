@@ -28,15 +28,14 @@
     			d3.queue()
         			.defer(d3.json, "NE_States_flu.topojson") 
         			.await(callback);
+				
+			function callback(error, csvData, us, newEngland){
+        			console.log(error);
+        			console.log(csvData);
+        			console.log(us);
+        			console.log(newEngland);
+    			};
 		};
-			
-		function callback(error, csvData, us, newEngland){
-        		console.log(error);
-        		console.log(csvData);
-        		console.log(us);
-        		console.log(newEngland);
-    		};
-		
 	 </script>
 	</body>
 </html>

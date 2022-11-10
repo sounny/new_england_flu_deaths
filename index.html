@@ -13,9 +13,13 @@
 
     	<script>
  		window.onload = function(){
-
-    			var container = d3.select("body")
-				.append("svg")
+			var w = 900, h = 500;
+    			var container = d3.select("body") 
+        			.append("svg")
+        			.attr("width", w)
+        			.attr("height", h)
+        			.attr("class", "container")
+				.style("background-color", "rgba(0,0,0,0.2)");
 		};
 	 </script>
 	</body>

@@ -12,19 +12,21 @@
     	<script src="lib/d3.js"></script>
 
     	<script>
- 		window.onload = function(){
-			var w = 900, h = 500;
-    			var container = d3.select("body") 
-        			.append("svg")
-        			.attr("width", w)
-        			.attr("height", h)
-        			.attr("class", "container")
-				.style("background-color", "rgba(0,0,0,0.2)");
-		
-			var innerRect = container.append("rect")
-        			.attr("width", 800) 
-        			.attr("height", 400)
-		
+ 		window.onload = setMap();
+
+		function setMap(){
+    			d3.queue()
+        			.defer(d3.csv, "Flu_deaths_New_England.csv")
+        			.defer(d3.json, "lower_48.topojson") 
+        			.defer(d3.json, "NE_States_flu.topojson") 
+        			.await(callback);
+			
+		function callback(error, csvData, us, newEngland){
+        		console.log(error);
+        		console.log(csvData);
+        		console.log(us);
+        		console.log(newEngland);
+    };
 		};
 	 </script>
 	</body>

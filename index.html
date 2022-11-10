@@ -27,7 +27,7 @@
 			var newEngland = 
     			d3.queue()
         			.defer(d3.json, "NE_States_flu.topojson") 
-        			.await(callback);
+        			.await(callback, csvData, us, newEngland);
 				
 			function callback(error, csvData, us, newEngland){
         			console.log(error);

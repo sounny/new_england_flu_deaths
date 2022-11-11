@@ -46,13 +46,13 @@
 			promises.push(d3.json, "lower_48.topojson")
         		promises.push(d3.json, "NE_States_flu.topojson")
 			promises.push(d3.json, "canada.topojson")
-			promises.push(d3.csv,"Flu_deaths_New_England.csv", function(d) { data.set(d.name, +d.fludeaths_2016, +d.fludeaths_2017, +d.fludeaths_2018, +d.fludeaths_2019, +d.fludeaths_2020); 
-										       })
+			promises.push(d3.csv,"Flu_deaths_New_England.csv", function(d) { data.set(d.name, +d.fludeaths_2016, +d.fludeaths_2017, +d.fludeaths_2018, +d.fludeaths_2019, +d.fludeaths_2020); })
 				
 			myDataPromises = Promise.all(promises).then(function(my_data) {
  
  			var topo = my_data[0]
 			});
+		};
     			
 	 </script>
 	</body>

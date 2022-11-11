@@ -25,7 +25,6 @@
         			.attr("width", width)
         			.attr("height", height);
 
-			
 			var projection = d3.geoAlbers()
         			.center([-68.78928371378728, 43.877822762882666])
         			.rotate([-2, 0])
@@ -35,21 +34,25 @@
 
     			var path = d3.geoPath()
         			.projection(projection);
-			d3.queue()
-        			.defer(d3.csv, "Flu_deaths_New_England.csv")
-				.defer(d3.json, "lower_48.topojson")
-        			.defer(d3.json, "NE_States_flu.topojson")
-				.defer(d3.json, "canada.topojson")
-        			.await(callback);
+			
+			var domain = [10.5, 13.5]
+			var range = ["#F8CAEE","#BF76AF","#852170"]
+			var colorScale = d3.scaleThreshold()
+  			.domain(domain)
+  			.range(range);
+			
+			var promises = []
+			var data = d3.map();
+			promises.push(d3.json, "lower_48.topojson")
+        		promises.push(d3.json, "NE_States_flu.topojson")
+			promises.push(d3.json, "canada.topojson")
+			promises.push(d3.csv,"Flu_deaths_New_England.csv", function(d) { data.set(d.name, +d.fludeaths_2016, +d.fludeaths_2017, +d.fludeaths_2018, +d.fludeaths_2019, +d.fludeaths_2020, ); })))
 				
-			function callback(error, Flu_deaths_New_England, lower_48, NE_States_flu, canada){
-				console.log(error);
-        			console.log(Flu_deaths_New_England);
-        			console.log(lower_48);
-        			console.log(NE_States_flu);
-				console.log(canada);
-    			};
-		};
+			myDataPromises = Promise.all(promises).then(function(my_data) {
+ 
+ 			var topo = my_data[0]
+		});
+    			
 	 </script>
 	</body>
 </html>

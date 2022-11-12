@@ -32,7 +32,7 @@
         			.scale(2000)
         			.translate([width / 2, height / 2]);
 
-    			var path = d3.geoPath()
+    			var geopath = d3.geoPath()
         			.projection(projection);
 			
 			var domain = [10.5, 13.5]
@@ -42,12 +42,12 @@
   			.range(range);
 			
 			var ne_states = map.append('g');
-ne_states.selectAll("path")
+ne_states.selectAll('path')
 .data.NE_States_flu.topojson.features)
 .enter()
-.append("path")
+.append('path')
 .attr('fill', '#ccc')
-.attr('d', path);
+.attr('d', geopath);
     			
 	 </script>
 	</body>

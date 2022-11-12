@@ -35,12 +35,6 @@
     			var geopath = d3.geoPath()
         			.projection(projection);
 			
-			var domain = [10.5, 13.5]
-			var range = ["#F8CAEE","#BF76AF","#852170"]
-			var colorScale = d3.scaleThreshold()
-  			.domain(domain)
-  			.range(range);
-			
 			var ne_states = map.append('g');
 ne_states.selectAll('path')
 .data.NE_States_flu.topojson.features)

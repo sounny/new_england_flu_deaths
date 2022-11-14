@@ -38,7 +38,7 @@
 			
 			var flu_states = d3.json("NE_States_flu.topojson")
 			
-			var ne_states = map.append('g');
+			var ne_states = svg.append('g');
 				ne_states.selectAll('path')
 				.data(flu_states.features)
 				.enter()

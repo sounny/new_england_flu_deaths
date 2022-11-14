@@ -35,9 +35,11 @@
     			var geopath = d3.geoPath()
         			.projection(projection);
 			
+			var flu_states = d3.json(NE_States_flu.topojson)
+			
 			var ne_states = map.append('g');
 				ne_states.selectAll('path')
-				.data(NE_States_flu.topojson.features)
+				.data(flu_states.features)
 				.enter()
 				.append('path')
 				.attr('fill', '#ccc')

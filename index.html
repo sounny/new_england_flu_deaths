@@ -37,7 +37,7 @@
 			
 			var ne_states = map.append('g');
 ne_states.selectAll('path')
-.data.NE_States_flu.topojson.features)
+.data(NE_States_flu.topojson.features)
 .enter()
 .append('path')
 .attr('fill', '#ccc')

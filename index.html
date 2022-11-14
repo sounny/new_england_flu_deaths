@@ -23,7 +23,7 @@
 			.append("g");
 		
 		d3.queue()
-			.defer(d3.json, "NE_States_flu.topojson")
+			.defer(d3.json, "canada.topojson")
 			.await(ready)
 		
 		function ready (error, data) {

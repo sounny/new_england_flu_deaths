@@ -36,12 +36,12 @@
         			.projection(projection);
 			
 			var ne_states = map.append('g');
-ne_states.selectAll('path')
-.data(NE_States_flu.topojson.features)
-.enter()
-.append('path')
-.attr('fill', '#ccc')
-.attr('d', geopath);
+				ne_states.selectAll('path')
+				.data(NE_States_flu.topojson.features)
+				.enter()
+				.append('path')
+				.attr('fill', '#ccc')
+				.attr('d', geopath);
 
 };
     			

@@ -14,17 +14,21 @@
 	<script src="//d3js.org/topojson.v1.min.js"></script>
 
     	<script>
- 		flu_states = d3.json("NE_States_flu.json")
-		var width = 960;
+ 		var width = 960;
         	var height = 460;
-		svg = d3.select( "body" )
-    			.append( "svg" )
-    			.attr( "width", width)
-    			.attr( "height", height);
-
-			 g = svg.append( "g" );
+		svg = d3.select("body")
+    			.append("svg")
+    			.attr("width", width)
+    			.attr("height", height)
+			.append("g");
 		
-  			
+		d3.queue()
+			.defer(d3.json, "NE_States_flu.topojson")
+			.await(ready)
+		
+		function ready (error, data {
+				 console.log(data)
+		}
 
 		var projection = d3.geoAlbers()
         		.center([-68.78928371378728, 43.877822762882666])
@@ -36,19 +40,7 @@
     		var geopath = d3.geoPath()
         		.projection(projection);
 		
-		let svg = d3.select(DOM.svg(width, height));
-		let g = svg.append("g");
 		
-		g.selectAll( "path" )
-    			.data(flu_states.features )
-    			.enter()
-    			.append( "path" )
-    			.attr( "fill", "#ccc" )
-    			.attr( "stroke", "#333")
-    			.attr( "d", geopath );
-  
-			return svg.node();
-		}
 						
     			
 	 </script>

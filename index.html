@@ -59,9 +59,7 @@
 			.range(["#900d09","#610c04","#4e0707"]);
 		
 		var ratebydeaths = {};
-			deaths.forEach(fucntion(d){
-				       ratebydeaths[d.fludeaths_2016]= +d.rate;
-		});
+			deaths.forEach(fucntion(d){ratebydeaths[d.fludeaths_2016]= +d.rate;});
 		
 		.style("fill",function(pt){
 			return threshold(ratebydeaths[pt.fludeaths_2016]);

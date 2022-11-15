@@ -30,7 +30,7 @@
 			.append("g");
 		
 		data = d3.queue()
-			.defer(d3.json, "https://gist.githubusercontent.com/jdev42092/5c285c4a3608eb9f9864f5da27db4e49/raw/a1c33b1432ca2948f14f656cc14c7c7335f78d95/boston_neighborhoods.json")
+			.defer(d3.csv, "Flu_deaths_New_England.csv")
 			.await(ready)
 		
 		function ready (error, data) {

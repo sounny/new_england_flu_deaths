@@ -25,47 +25,24 @@
 	
 	<h1>New England Flu/Pneumonia Deaths 2016-2020</h1>
     	<script>
- 		var width = 960;
-        	var height = 460;
-		var svg = d3.select("body")
-    			.append("svg")
-    			.attr("width", width)
-    			.attr("height", height);
-		
-		svg.append("g")
-			.selectAll("path")
-			.data(topojson.feature(ne, ne.objects.states).features)
-			.enter()
-			.append("path")
-			.append("d", geopath)
-		
-		d3.json("NE_States_flu.topojson",function(error,ne){
-			d3.csv("Flu_deaths_New_England.csv",function(deaths){
-			});
-		});
-		
-		var projection = d3.geoAlbers()
-        		.center([-68.78928371378728, 43.877822762882666])
-        		.rotate([-2, 0])
-        		.parallels([38, 50])
-        		.scale(2000)
-        		.translate([width / 2, height / 2]);
+ 		window.onload = setMap();
 
-    		var geopath = d3.geoPath()
-        		.projection(projection);
-		
-		var threshold = d3.scale.threshold()
-			.domain([10.5,13.6])
-			.range(["#900d09","#610c04","#4e0707"]);
-		
-		var ratebydeaths = {};
-			deaths.forEach(fucntion(d){ratebydeaths[d.fludeaths_2016]= +d.rate;});
-		
-		.style("fill",function(pt){
-			return threshold(ratebydeaths[pt.fludeaths_2016]);
-		});		
-						
-    			
+		function setMap(){
+			d3.queue()
+        			.defer(d3.csv, "Flu_deaths_New_England.csv")
+				.defer(d3.json, "lower_48.topojson")
+        			.defer(d3.json, "NE_States_flu.topojson")
+				.defer(d3.json, "canada.topojson")
+        			.await(callback);
+				
+			function callback(error, ne, us, csvData, canada){
+				console.log(error);
+        			console.log(ne);
+        			console.log(us);
+        			console.log(csvData);
+				console.log(canada);
+    			};
+		};
 	 </script>
 	</body>
 </html>

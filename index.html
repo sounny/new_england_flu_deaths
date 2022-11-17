@@ -92,8 +92,8 @@
 					.attr("d", path); 
 
 				var canadaBorder = topojson.feature(canada),
-				var states = topojson.feature(us, us.objects.lower_48),
-				var fluStates = topojson.feature(ne, ne.objects.NE_States_flu).features;			
+				states = topojson.feature(us, us.objects.lower_48),
+				fluStates = topojson.feature(ne, ne.objects.NE_States_flu).features;			
 				
 		
 				var cb = map.append("path")

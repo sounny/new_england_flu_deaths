@@ -20,6 +20,20 @@
 	 font-family: Oswald;
 	 color: white;}
 	</style>
+	.gratBackground {
+	fill: #9badd1;
+}
+
+.gratLines {
+	fill: none;
+	stroke: #bfbfbf;
+	stroke-width: 1px;
+}
+	.otherplaces {
+	fill: #FFF;
+	stroke: #CCC;
+	stroke-width: 2px;
+}
  </head>
 <body>
 	
@@ -28,30 +42,82 @@
  		window.onload = setMap();
 
 		function setMap(){
-			d3.queue()
-  				.defer(function getData(callback) {
-    					setTimeout(function() {
-      						callback(null, "finished");
-    					}, 100);
-  				})
-  				.await(function(error, message) {
-    					console.log(message);
-  			});
-		}			
-		function(getData(){
-			d3.queue()
-  				.defer(function foo(csvData, ne, us, canada, callback) {
-    					d3.csv("Flu_deaths_New_England.csv").then(function(file)
-					d3.json("NE_States_flu.topojson").then(function(file)
-					d3.json("lower_48.topojson").then(function(file)
-					d3.json("canada.topojson").then(function(file)
-					{
-      				callback(null, file)
-    				})
-  				}, "https://api.npoint.io/5b22a0474c99d3049d2e")
-  			.await(function(error, message) {
-    				console.log(message);
-  		});
+	
+			var width = 85%,
+			var height = 600px;
+
+			var map = d3.select("body")
+				.append("svg")
+				.attr("class", "map")
+				.attr("width", width)
+				.attr("height", height);
+
+			var projection = d3.geoAlbers()
+        			.center([-68.78928371378728, 43.877822762882666])
+        			.rotate([-2, 0])
+        			.parallels([38, 50])
+        			.scale(2000)
+        			.translate([width / 2, height / 2]);
+
+			var path = d3.geoPath()
+				.projection(projection);
+
+	
+			var promises = [];
+				promises.push(d3.csv("Flu_deaths_New_England.csv")); 
+				promises.push(d3.json("lower_48.topojson"));
+				promises.push(d3.json("canada.topojson"));
+				promises.push(d3.json("NE_States_flu.topojson"));
+				Promise.all(promises).then(callback);
+
+			function callback(data){
+
+				csvData = data[0];
+				us = data[1];
+				canada = data[2];
+				ne = data[3]:
+
+				var graticule = d3.geoGraticule()
+					.step([5, 5]);
+
+				var gratBackground = map.append("path")
+					.datum(graticule.outline()) 
+					.attr("class", "gratBackground")
+					.attr("d", path) 
+
+		
+				var gratLines = map.selectAll(".gratLines") 
+					.data(graticule.lines()) 
+		  			.enter() 
+					.append("path") 
+					.attr("class", "gratLines") 
+					.attr("d", path); 
+
+				var canadaBorder = topojson.feature(canada),
+				var states = topojson.feature(us, us.objects.lower_48)
+				var fluStates = topojson.feature(ne, ne.objects.NE_States_flu).features;			
+				
+		
+				var cb = map.append("path")
+					.datum(canadaBorder)
+					.attr("class", "otherplaces")
+					.attr("d", path);
+				
+				var uss = map.append("path")
+					.datum(states)
+					.attr("class", "otherplaces")
+					.attr("d", path);
+
+				var flu = map.selectAll(".flu")
+					.data(fluStates)
+					.enter()
+					.append("path")
+					.attr("class", function(d){
+						return d.properties.name;
+					})
+					.attr("d", path);
+			};
+		};
 			
 	 </script>
 	</body>

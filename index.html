@@ -91,7 +91,7 @@
 					.attr("class", "gratLines") 
 					.attr("d", path); 
 
-				var canadaBorder = topojson.feature(canada),
+				var canadaBorder = topojson.feature(canada, canada.objects.canada),
 				states = topojson.feature(us, us.objects.lower_48),
 				fluStates = topojson.feature(ne, ne.objects.NE_States_flu).features;			
 				

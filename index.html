@@ -29,20 +29,30 @@
 
 		function setMap(){
 			d3.queue()
-        			.defer(d3.csv, "Flu_deaths_New_England.csv")
-				.defer(d3.json, "lower_48.topojson")
-        			.defer(d3.json, "NE_States_flu.topojson")
-				.defer(d3.json, "canada.topojson")
-        			.await(callback);
-				
-			function callback(error, ne, us, csvData, canada){
-				console.log(error);
-        			console.log(ne);
-        			console.log(us);
-        			console.log(csvData);
-				console.log(canada);
-    			};
-		};
+  				.defer(function getData(callback) {
+    					setTimeout(function() {
+      						callback(null, "finished");
+    					}, 100);
+  				})
+  				.await(function(error, message) {
+    					console.log(message);
+  			});
+		}			
+		function(getData(){
+			d3.queue()
+  				.defer(function foo(csvData, ne, us, canada, callback) {
+    					d3.csv("Flu_deaths_New_England.csv").then(function(file)
+					d3.json("NE_States_flu.topojson").then(function(file)
+					d3.json("lower_48.topojson").then(function(file)
+					d3.json("canada.topojson").then(function(file)
+					{
+      				callback(null, file)
+    				})
+  				}, "https://api.npoint.io/5b22a0474c99d3049d2e")
+  			.await(function(error, message) {
+    				console.log(message);
+  		});
+			
 	 </script>
 	</body>
 </html>

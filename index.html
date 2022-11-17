@@ -107,11 +107,11 @@
 					.attr("d", path);
 
 				var flu = map.selectAll(".flu")
-					.data(fluStates)
+					.data(fluStates.properties)
 					.enter()
 					.append("path")
 					.attr("class", function(d){
-						return d.properties.name;
+						return d.properties.Name;
 					})
 					.attr("d", path);
 			};
